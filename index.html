@@ -26,7 +26,6 @@
         .accessory-icon { position: absolute; display: flex; align-items: center; justify-content: center; transform-origin: center; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); }
         .dead-creature { filter: grayscale(100%) brightness(70%); transform: rotate(180deg); opacity: 0.8; }
         .offspring-container { opacity: 0.9; filter: brightness(1.1); }
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #86efac; border-radius: 4px; }
@@ -43,7 +42,8 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-wide">Nature's Adapter</h1>
-                    <p class="text-xs text-slate-400 font-normal">3.3 Adaptation and Habitat</p>
+                    <!-- UPDATED HEADER TEXT -->
+                    <p class="text-xs text-slate-400 font-normal">3.3 adaptation and habitat</p>
                 </div>
             </div>
             <div id="points-display" class="hidden bg-slate-800 border border-slate-700 px-5 py-2 rounded-full font-bold flex items-center gap-3 shadow-inner">
@@ -379,7 +379,7 @@
                 bgUrl: 'https://i.ibb.co/Ld7Kzs8z/DMG2210-3860flat-4.jpg', 
                 challenges: [
                     { name: "Scorching Heat", requiredTrait: ["Burrowing Claws", "Reflective Scales"], stats: ["sur"], min: 30, critical: true, desc: "Surface is 50°C+. Must escape underground or reflect heat." },
-                    { name: "Water Scarcity", requiredTrait: ["Water Tail", "Dew Collection", "Fat Reserves", "Sand Skin"], stats: ["sur"], min: 35, critical: true, desc: "No rain. Needs internal storage or collection." },
+                    { name: "Water Scarcity", requiredTrait: ["Water Tail", "Dew Collection", "Fat Reserves"], stats: ["sur"], min: 35, critical: true, desc: "No rain. Needs internal storage or collection." },
                     { name: "Predators", requiredTrait: ["Hard Scales", "Venom", "Shedding Tail", "Spiny Armor", "Sand Skin", "Burrowing Claws"], stats: ["def", "eva"], min: 25, critical: false, desc: "Hawks hunt from above. Needs defense or hiding." },
                     { name: "Loose Sand", requiredTrait: ["Sand Skin", "Burrowing Claws"], stats: ["eva"], min: 15, critical: false, desc: "Hard to walk. Needs adapted movement." },
                     { name: "UV Radiation", requiredTrait: ["Reflective Scales", "Hard Scales"], stats: ["def", "sur"], min: 20, critical: false, desc: "Direct sun burns skin." },
@@ -390,7 +390,7 @@
                     { name: 'Burrowing Claws', cost: 6, stats: { atk: 5, sur: 10, eva: 15, def: 5 }, desc: 'Enables digging deep to find cooler earth underground.', visual: { type: 'attachment', icon: 'fa-paw', color: 'text-stone-600', top: '80%', left: '20%', size: '2rem', rotate: '0deg' } },
                     { name: 'Venom', cost: 8, stats: { atk: 35, sur: 0, eva: 0, def: 5 }, desc: 'Incapacitates prey instantly to minimize energy expenditure.', visual: { type: 'attachment', icon: 'fa-droplet', color: 'text-green-500', top: '20%', left: '10%', size: '2rem', rotate: '0deg' } },
                     { name: 'Water Tail', cost: 7, stats: { atk: 0, sur: 30, eva: -2, def: 0 }, desc: 'Specialized appendage for storing hydration reserves.', visual: { type: 'attachment', icon: 'fa-bottle-water', color: 'text-blue-400', top: '55%', left: '85%', size: '2.5rem', rotate: '-45deg' } }, 
-                    { name: 'Sand Skin', cost: 5, stats: { atk: 5, sur: 0, eva: 15, def: 0 }, desc: 'Coloration mimics the shifting dunes for concealment.', visual: { type: 'color', val: '#fdba74' } }, 
+                    { name: 'Sand Skin', cost: 5, stats: { atk: 5, sur: 0, eva: 15, def: 0 }, desc: 'Coloration mimics the shifting dunes for concealment, also allows for better movement on loose sand.', visual: { type: 'color', val: '#fdba74' } }, 
                     { name: 'Shedding Tail', cost: 5, stats: { atk: 0, sur: 5, eva: 20, def: 0 }, desc: 'Sacrificial limb to distract attackers during escape.', visual: { type: 'attachment', icon: 'fa-scissors', color: 'text-slate-500', top: '80%', left: '80%', size: '2rem', rotate: '0deg' } },
                     { name: 'Third Eyelid', cost: 4, stats: { atk: 0, sur: 10, eva: 5, def: 0 }, desc: 'Translucent membrane blocks grit while maintaining vision.', visual: { type: 'attachment', icon: 'fa-eye-slash', color: 'text-stone-400', top: '25%', left: '20%', size: '1.5rem', rotate: '0deg' } },
                     { name: 'Dew Collection', cost: 7, stats: { atk: 0, sur: 20, eva: 0, def: 0 }, desc: 'Skin texture channels morning condensation to the mouth.', visual: { type: 'attachment', icon: 'fa-glass-water', color: 'text-cyan-300', top: '40%', left: '50%', size: '2rem', rotate: '0deg' } },
@@ -426,7 +426,7 @@
                     { name: 'Zygodactyl Feet', cost: 5, stats: { atk: 5, sur: 0, eva: 20, def: 0 }, desc: 'Toes arranged for climbing up vertical trunks.', visual: { type: 'attachment', icon: 'fa-hand-fist', color: 'text-amber-700', top: '90%', left: '50%', size: '2.5rem', rotate: '0deg' } },
                     { name: 'Binocular Vision', cost: 5, stats: { atk: 15, sur: 0, eva: 5, def: 0 }, desc: 'Overlapping visual fields to judge distance in 3D space.', visual: { type: 'attachment', icon: 'fa-glasses', color: 'text-blue-500', top: '25%', left: '25%', size: '2rem', rotate: '0deg' } },
                     { name: 'Tool Use', cost: 9, stats: { atk: 10, sur: 20, eva: 0, def: 0 }, desc: 'Ability to manipulate sticks to extract hidden food.', visual: { type: 'attachment', icon: 'fa-wrench', color: 'text-slate-600', top: '70%', left: '70%', size: '2rem', rotate: '0deg' } },
-                    { name: 'Oil Gland', cost: 5, stats: { atk: 0, sur: 20, eva: 0, def: 5 }, desc: 'Secretes coating to waterproof feathers against downpours.', visual: { type: 'attachment', icon: 'fa-droplet', color: 'text-yellow-200', top: '60%', left: '70%', size: '2rem', rotate: '0deg' } },
+                    { name: 'Oil Gland', cost: 5, stats: { atk: 0, sur: 20, eva: 0, def: 5 }, desc: 'Secretes a chemical coating that waterproofs feathers and repels feather-destroying mites.', visual: { type: 'attachment', icon: 'fa-droplet', color: 'text-yellow-200', top: '60%', left: '70%', size: '2rem', rotate: '0deg' } },
                     { name: 'Display Crest', cost: 5, stats: { atk: 5, sur: 15, eva: 0, def: 0 }, desc: 'Physical ornamentation to stand out to potential partners.', visual: { type: 'attachment', icon: 'fa-crown', color: 'text-pink-500', top: '5%', left: '30%', size: '2.5rem', rotate: '-10deg' } }
                 ]
             },
