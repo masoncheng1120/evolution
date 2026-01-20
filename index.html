@@ -14,7 +14,7 @@
         @keyframes pop { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .trait-card { transition: all 0.2s ease; }
         .trait-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-        .trait-card.selected { border-color: #22c55e; background-color: #f0fdf4; box-shadow: 0 0 0 2px #22c55e; }
+        .trait-card.selected { border-color: #22c55e; background-color: #f0fdf4; box-shadow: 0 0 0 3px #22c55e; }
         .trait-card .check-icon { display: none; }
         .trait-card.selected .check-icon { display: block; }
         .stat-bar-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -26,87 +26,86 @@
         .accessory-icon { position: absolute; display: flex; align-items: center; justify-content: center; transform-origin: center; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); }
         .dead-creature { filter: grayscale(100%) brightness(70%); transform: rotate(180deg); opacity: 0.8; }
         .offspring-container { opacity: 0.9; filter: brightness(1.1); }
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 12px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #86efac; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #86efac; border-radius: 6px; }
     </style>
 </head>
-<body class="text-slate-800 min-h-screen flex flex-col bg-slate-50">
+<body class="text-slate-800 min-h-screen flex flex-col bg-slate-50 text-lg">
 
     <!-- Header -->
-    <header class="bg-slate-900 text-white p-4 shadow-xl sticky top-0 z-50 border-b-4 border-green-500">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="bg-green-500 p-2 rounded-lg shadow-lg shadow-green-500/20">
-                    <i class="fa-solid fa-dna text-2xl text-white"></i>
+    <header class="bg-slate-900 text-white p-6 shadow-xl sticky top-0 z-50 border-b-8 border-green-500">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-5">
+                <div class="bg-green-500 p-4 rounded-2xl shadow-lg shadow-green-500/20">
+                    <i class="fa-solid fa-dna text-4xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-wide">Nature's Adapter</h1>
-                    <!-- UPDATED HEADER TEXT -->
-                    <p class="text-xs text-slate-400 font-normal">3.3 adaptation and habitat</p>
+                    <h1 class="text-4xl font-black tracking-wide">Nature's Adapter</h1>
+                    <p class="text-xl text-slate-300 font-bold mt-1 uppercase tracking-widest">3.3 Adaptation & Habitat</p>
                 </div>
             </div>
-            <div id="points-display" class="hidden bg-slate-800 border border-slate-700 px-5 py-2 rounded-full font-bold flex items-center gap-3 shadow-inner">
-                <span class="text-slate-400 text-sm uppercase tracking-wider">DNA Points</span>
-                <span id="current-points" class="text-green-400 text-2xl font-black">40</span>
+            <div id="points-display" class="hidden bg-slate-800 border-2 border-slate-700 px-8 py-4 rounded-full font-bold flex items-center gap-5 shadow-inner">
+                <span class="text-slate-300 text-xl uppercase tracking-wider font-black">DNA Points</span>
+                <span id="current-points" class="text-green-400 text-5xl font-black">40</span>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow p-4 md:p-6 max-w-6xl mx-auto w-full">
+    <main class="flex-grow p-8 max-w-[95%] mx-auto w-full">
         
         <!-- View 1: Scenario Selection -->
-        <div id="view-selection" class="animate-pop block py-8">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-black text-slate-800 mb-4">Select an Environment</h2>
-                <p class="text-slate-500 text-lg max-w-2xl mx-auto">Choose a subject to evolve. You will need to select the correct physical traits to ensure the organism survives the harsh conditions.</p>
+        <div id="view-selection" class="animate-pop block py-12">
+            <div class="text-center mb-16">
+                <h2 class="text-6xl font-black text-slate-900 mb-6">Select an Environment</h2>
+                <p class="text-slate-500 text-2xl max-w-4xl mx-auto font-medium">Choose a subject to evolve. You will need to select the correct physical traits to ensure the organism survives the harsh conditions.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <!-- Cards generated by JS -->
             </div>
         </div>
 
         <!-- View 2: Evolution Lab -->
         <div id="view-lab" class="hidden animate-pop h-full flex flex-col">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-6 flex flex-col md:flex-row gap-6 items-center">
+            <div class="bg-white rounded-[2rem] shadow-sm border-2 border-slate-200 p-8 mb-10 flex flex-col md:flex-row gap-10 items-center">
                  <div class="flex-grow">
-                    <h3 id="env-title" class="text-2xl font-bold text-slate-800 mb-2">Environment Title</h3>
-                    <p id="env-desc" class="text-slate-600 mb-4 text-sm"></p>
-                    <div class="bg-red-50 p-4 rounded-xl border border-red-100">
-                        <div class="flex items-center gap-2 mb-2 text-red-800 font-bold border-b border-red-200 pb-2">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                            <h4>Harsh Environmental Conditions</h4>
+                    <h3 id="env-title" class="text-6xl font-black text-slate-800 mb-4">Environment Title</h3>
+                    <p id="env-desc" class="text-slate-600 mb-8 text-2xl leading-relaxed"></p>
+                    <div class="bg-red-50 p-8 rounded-3xl border-2 border-red-100">
+                        <div class="flex items-center gap-4 mb-6 text-red-800 font-bold border-b-2 border-red-200 pb-4">
+                            <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
+                            <h4 class="text-3xl font-black">Harsh Environmental Conditions</h4>
                         </div>
-                        <div id="env-conditions-table" class="text-sm"></div>
+                        <div id="env-conditions-table" class="space-y-4"></div>
                     </div>
                  </div>
-                 <button onclick="calculateResults()" class="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-green-600/20 transition-all transform hover:scale-105 flex items-center justify-center gap-2 text-lg group">
+                 <button onclick="calculateResults()" class="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white px-12 py-8 rounded-3xl font-black shadow-xl shadow-green-600/20 transition-all transform hover:scale-105 flex items-center justify-center gap-4 text-3xl group border-b-8 border-green-800 active:border-b-0 active:translate-y-2">
                     Test Survival <i class="fa-solid fa-flask group-hover:rotate-12 transition-transform"></i>
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                <div class="lg:col-span-4 order-2 lg:order-1 flex flex-col gap-4">
-                    <h3 class="font-bold text-slate-500 uppercase text-xs tracking-wider flex justify-between items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                <div class="lg:col-span-4 order-2 lg:order-1 flex flex-col gap-6">
+                    <h3 class="font-black text-slate-500 uppercase text-lg tracking-widest flex justify-between items-center border-b-2 border-slate-200 pb-2">
                         <span>Adaptations</span>
-                        <span class="text-[10px] bg-slate-200 px-2 py-1 rounded">Scroll for more</span>
+                        <span class="text-sm bg-slate-200 px-3 py-1 rounded-full text-slate-600 font-bold">Scroll for more</span>
                     </h3>
-                    <div id="traits-grid" class="grid grid-cols-1 gap-3 max-h-[600px] overflow-y-auto pr-2 pb-4"></div>
+                    <div id="traits-grid" class="grid grid-cols-1 gap-5 max-h-[800px] overflow-y-auto pr-4 pb-4"></div>
                 </div>
 
                 <div class="lg:col-span-5 order-1 lg:order-2">
-                    <div class="sticky top-24">
-                        <div class="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-900 group">
+                    <div class="sticky top-32">
+                        <div class="relative w-full aspect-square rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white bg-slate-900 group">
                             <img id="stage-bg" src="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80" alt="Habitat">
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent"></div>
                             <div class="absolute inset-0 flex items-center justify-center z-10">
-                                <div id="creature-container" class="relative w-64 h-64 flex items-center justify-center floating transition-all duration-500"></div>
+                                <div id="creature-container" class="relative w-96 h-96 flex items-center justify-center floating transition-all duration-500"></div>
                             </div>
-                            <div class="absolute bottom-6 left-6 right-6 z-30">
-                                <div class="text-white text-xs font-bold uppercase tracking-wider mb-1 opacity-70">Evolution Progress</div>
-                                <div class="h-1.5 w-full bg-slate-700 rounded-full overflow-hidden mb-2">
-                                    <div id="evolution-progress" class="h-full bg-green-400 transition-all duration-500 w-0"></div>
+                            <div class="absolute bottom-10 left-10 right-10 z-30">
+                                <div class="text-white text-lg font-black uppercase tracking-widest mb-3 opacity-90 drop-shadow-md">Evolution Progress</div>
+                                <div class="h-6 w-full bg-slate-700/50 backdrop-blur rounded-full overflow-hidden border-2 border-white/20">
+                                    <div id="evolution-progress" class="h-full bg-green-400 transition-all duration-500 w-0 shadow-[0_0_15px_rgba(74,222,128,0.8)]"></div>
                                 </div>
                             </div>
                         </div>
@@ -114,50 +113,50 @@
                 </div>
 
                 <div class="lg:col-span-3 order-3 lg:order-3">
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sticky top-24">
-                        <h3 class="font-bold text-slate-800 mb-6 flex items-center gap-2 border-b pb-4">
-                            <i class="fa-solid fa-chart-pie text-2xl text-blue-500"></i> Vital Statistics
+                    <div class="bg-white rounded-[2rem] shadow-sm border-2 border-slate-200 p-8 sticky top-32">
+                        <h3 class="font-black text-slate-800 mb-8 flex items-center gap-4 border-b-2 pb-6 text-2xl">
+                            <i class="fa-solid fa-chart-pie text-4xl text-blue-500"></i> Vital Statistics
                         </h3>
-                        <div id="stats-bars-container" class="space-y-6">
+                        <div id="stats-bars-container" class="space-y-8">
                             <div class="group">
-                                <div class="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                                    <span class="flex items-center gap-1"><i class="fa-solid fa-khanda text-red-500"></i> ATTACK</span>
-                                    <span id="val-atk" class="bg-slate-100 px-2 rounded text-slate-700">0</span>
+                                <div class="flex justify-between text-base font-black text-slate-600 mb-2">
+                                    <span class="flex items-center gap-2"><i class="fa-solid fa-khanda text-red-500 text-xl"></i> ATTACK</span>
+                                    <span id="val-atk" class="bg-slate-100 px-4 py-1 rounded-lg text-slate-800 text-2xl">0</span>
                                 </div>
-                                <div class="h-3 bg-slate-100 rounded-full overflow-hidden relative">
-                                    <div class="absolute left-0 top-0 bottom-0 border-r border-white/50 z-10 w-[20%]"></div>
-                                    <div id="bar-atk" class="h-full bg-gradient-to-r from-red-400 to-red-600 stat-bar-fill w-0 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+                                <div class="h-6 bg-slate-100 rounded-full overflow-hidden relative border border-slate-200">
+                                    <div class="absolute left-0 top-0 bottom-0 border-r-2 border-white/50 z-10 w-[20%]"></div>
+                                    <div id="bar-atk" class="h-full bg-gradient-to-r from-red-400 to-red-600 stat-bar-fill w-0 shadow-[0_0_15px_rgba(239,68,68,0.5)]"></div>
                                 </div>
                             </div>
                             <div class="group">
-                                <div class="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                                    <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-blue-500"></i> DEFENSE</span>
-                                    <span id="val-def" class="bg-slate-100 px-2 rounded text-slate-700">0</span>
+                                <div class="flex justify-between text-base font-black text-slate-600 mb-2">
+                                    <span class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-blue-500 text-xl"></i> DEFENSE</span>
+                                    <span id="val-def" class="bg-slate-100 px-4 py-1 rounded-lg text-slate-800 text-2xl">0</span>
                                 </div>
-                                <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
-                                    <div id="bar-def" class="h-full bg-gradient-to-r from-blue-400 to-blue-600 stat-bar-fill w-0 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
-                                </div>
-                            </div>
-                            <div class="group">
-                                <div class="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                                    <span class="flex items-center gap-1"><i class="fa-solid fa-heart-pulse text-green-500"></i> SURVIVAL</span>
-                                    <span id="val-sur" class="bg-slate-100 px-2 rounded text-slate-700">0</span>
-                                </div>
-                                <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
-                                    <div id="bar-sur" class="h-full bg-gradient-to-r from-green-400 to-green-600 stat-bar-fill w-0 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                                <div class="h-6 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+                                    <div id="bar-def" class="h-full bg-gradient-to-r from-blue-400 to-blue-600 stat-bar-fill w-0 shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
                                 </div>
                             </div>
                             <div class="group">
-                                <div class="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                                    <span class="flex items-center gap-1"><i class="fa-solid fa-wind text-yellow-500"></i> EVASION</span>
-                                    <span id="val-eva" class="bg-slate-100 px-2 rounded text-slate-700">0</span>
+                                <div class="flex justify-between text-base font-black text-slate-600 mb-2">
+                                    <span class="flex items-center gap-2"><i class="fa-solid fa-heart-pulse text-green-500 text-xl"></i> SURVIVAL</span>
+                                    <span id="val-sur" class="bg-slate-100 px-4 py-1 rounded-lg text-slate-800 text-2xl">0</span>
                                 </div>
-                                <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
-                                    <div id="bar-eva" class="h-full bg-gradient-to-r from-yellow-400 to-yellow-600 stat-bar-fill w-0 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div>
+                                <div class="h-6 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+                                    <div id="bar-sur" class="h-full bg-gradient-to-r from-green-400 to-green-600 stat-bar-fill w-0 shadow-[0_0_15px_rgba(34,197,94,0.5)]"></div>
+                                </div>
+                            </div>
+                            <div class="group">
+                                <div class="flex justify-between text-base font-black text-slate-600 mb-2">
+                                    <span class="flex items-center gap-2"><i class="fa-solid fa-wind text-yellow-500 text-xl"></i> EVASION</span>
+                                    <span id="val-eva" class="bg-slate-100 px-4 py-1 rounded-lg text-slate-800 text-2xl">0</span>
+                                </div>
+                                <div class="h-6 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+                                    <div id="bar-eva" class="h-full bg-gradient-to-r from-yellow-400 to-yellow-600 stat-bar-fill w-0 shadow-[0_0_15px_rgba(234,179,8,0.5)]"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-6 pt-4 border-t text-xs text-slate-400 leading-tight">
+                        <div class="mt-8 pt-6 border-t-2 text-base text-slate-400 leading-relaxed font-medium italic">
                             Tip: You have 40 points. You MUST match specific traits to critical problems.
                         </div>
                     </div>
@@ -166,24 +165,24 @@
         </div>
 
         <!-- View 3: Results -->
-        <div id="view-result" class="hidden animate-pop max-w-6xl mx-auto w-full py-12 px-4">
+        <div id="view-result" class="hidden animate-pop max-w-[95%] mx-auto w-full py-12 px-6">
             
-            <div class="space-y-8">
+            <div class="space-y-16">
                 <!-- 1. Environmental Context Card -->
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
-                    <div class="bg-slate-800 px-8 py-4">
-                        <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                            <span class="bg-slate-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span> 
+                <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-2 border-slate-200">
+                    <div class="bg-slate-800 px-12 py-8">
+                        <h2 class="text-4xl font-black text-white flex items-center gap-6">
+                            <span class="bg-slate-700 w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 border-slate-500">1</span> 
                             Environmental Context
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <h3 id="res-env-title" class="text-3xl font-black text-slate-800 mb-2">Environment Title</h3>
-                        <p id="res-env-desc" class="text-slate-600 mb-6 text-lg">...</p>
+                    <div class="p-12">
+                        <h3 id="res-env-title" class="text-6xl font-black text-slate-800 mb-6">Environment Title</h3>
+                        <p id="res-env-desc" class="text-slate-600 mb-10 text-2xl leading-relaxed">...</p>
                         
-                        <div class="bg-red-50 rounded-xl p-6 border border-red-100">
-                            <h4 class="font-bold text-red-800 mb-4 uppercase text-xs tracking-wider border-b border-red-200 pb-2">Challenges Identified</h4>
-                            <div id="res-env-challenges" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="bg-red-50 rounded-3xl p-10 border-2 border-red-100">
+                            <h4 class="font-black text-red-900 mb-8 uppercase text-xl tracking-widest border-b-2 border-red-200 pb-4">Challenges Identified</h4>
+                            <div id="res-env-challenges" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 <!-- JS Injected Challenges -->
                             </div>
                         </div>
@@ -191,32 +190,32 @@
                 </div>
 
                 <!-- 2. Organism Design Card -->
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
-                    <div class="bg-slate-800 px-8 py-4">
-                        <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                            <span class="bg-slate-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span> 
+                <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-2 border-slate-200">
+                    <div class="bg-slate-800 px-12 py-8">
+                        <h2 class="text-4xl font-black text-white flex items-center gap-6">
+                            <span class="bg-slate-700 w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 border-slate-500">2</span> 
                             Your Design Configuration
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="p-12">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                             <!-- Visual (4 cols) -->
-                            <div class="lg:col-span-4 flex flex-col gap-6">
-                                <div id="result-creature-stage" class="relative h-64 w-full bg-slate-50 rounded-2xl border-2 border-slate-100 flex justify-center items-center overflow-hidden shadow-inner bg-gradient-to-b from-slate-50 to-slate-100">
+                            <div class="lg:col-span-4 flex flex-col gap-10">
+                                <div id="result-creature-stage" class="relative h-96 w-full bg-slate-50 rounded-[2rem] border-4 border-slate-100 flex justify-center items-center overflow-hidden shadow-inner bg-gradient-to-b from-slate-50 to-slate-100">
                                     <!-- Creature -->
                                 </div>
-                                <div class="bg-white border border-slate-200 rounded-2xl p-6">
-                                    <h3 class="font-bold text-slate-700 mb-4 uppercase text-xs tracking-wider">Final Statistics</h3>
+                                <div class="bg-white border-2 border-slate-200 rounded-3xl p-8">
+                                    <h3 class="font-black text-slate-800 mb-6 uppercase text-lg tracking-widest border-b-2 border-slate-100 pb-4">Final Statistics</h3>
                                     <div id="result-stats-clone"></div>
                                 </div>
                             </div>
 
                             <!-- Traits (8 cols) -->
                             <div class="lg:col-span-8">
-                                <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <h3 class="font-black text-slate-800 mb-8 flex items-center gap-4 text-3xl">
                                     <i class="fa-solid fa-dna text-blue-600"></i> All Available Adaptations
                                 </h3>
-                                <div id="result-traits-list" class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[500px] overflow-y-auto pr-2">
+                                <div id="result-traits-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[700px] overflow-y-auto pr-4">
                                     <!-- JS Injected Traits -->
                                 </div>
                             </div>
@@ -225,42 +224,42 @@
                 </div>
 
                 <!-- 3. Survival Analysis & Verdict -->
-                <div class="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-800 text-white">
-                    <div class="px-8 py-6 border-b border-slate-700 flex justify-between items-center">
-                        <h2 class="text-2xl font-bold flex items-center gap-2">
-                            <span class="bg-slate-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span> 
+                <div class="bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-slate-800 text-white">
+                    <div class="px-12 py-10 border-b-2 border-slate-700 flex justify-between items-center">
+                        <h2 class="text-4xl font-black flex items-center gap-6">
+                            <span class="bg-slate-700 w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 border-slate-500">3</span> 
                             Survival Analysis Report
                         </h2>
-                        <div id="final-score-badge" class="bg-slate-700 px-4 py-1 rounded-full text-sm font-bold text-green-400 border border-slate-600">
+                        <div id="final-score-badge" class="bg-slate-800 px-8 py-3 rounded-full text-3xl font-black text-green-400 border-2 border-slate-600">
                             Score: 0%
                         </div>
                     </div>
                     
-                    <div class="p-8">
+                    <div class="p-12">
                         <!-- Analysis Table -->
-                        <div class="bg-slate-800 rounded-xl overflow-hidden mb-8 border border-slate-700">
-                            <table class="w-full text-left text-sm">
-                                <thead class="bg-slate-700 text-slate-400 uppercase font-bold text-xs">
+                        <div class="bg-slate-800 rounded-3xl overflow-hidden mb-12 border-2 border-slate-700">
+                            <table class="w-full text-left text-xl">
+                                <thead class="bg-slate-700 text-slate-300 uppercase font-black text-lg">
                                     <tr>
-                                        <th class="px-6 py-4 w-1/4">Harsh Condition</th>
-                                        <th class="px-6 py-4 w-1/4">Survival Outcome</th>
-                                        <th class="px-6 py-4 w-1/2">Contributing Adaptations</th>
+                                        <th class="px-10 py-6 w-1/4">Harsh Condition</th>
+                                        <th class="px-10 py-6 w-1/4">Survival Outcome</th>
+                                        <th class="px-10 py-6 w-1/2">Contributing Adaptations</th>
                                     </tr>
                                 </thead>
-                                <tbody id="result-conditions-table-body" class="divide-y divide-slate-700 text-slate-200">
+                                <tbody id="result-conditions-table-body" class="divide-y-2 divide-slate-700 text-slate-200 font-medium">
                                     <!-- JS Injected Rows -->
                                 </tbody>
                             </table>
                         </div>
 
                         <!-- Final Verdict -->
-                        <div class="text-center pt-4">
-                            <div class="inline-block bg-slate-800 rounded-full px-4 py-1 text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 border border-slate-700">Evolutionary Result</div>
-                            <h3 id="result-title" class="text-5xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">Result Title</h3>
-                            <p id="result-feedback" class="text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">...</p>
+                        <div class="text-center pt-8">
+                            <div class="inline-block bg-slate-800 rounded-full px-8 py-3 text-lg font-black text-slate-400 uppercase tracking-widest mb-8 border-2 border-slate-700">Evolutionary Result</div>
+                            <h3 id="result-title" class="text-7xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">Result Title</h3>
+                            <p id="result-feedback" class="text-3xl text-slate-400 max-w-4xl mx-auto font-light leading-relaxed">...</p>
                             
-                            <div class="mt-10">
-                                <button onclick="resetLab()" class="bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-8 rounded-xl shadow-lg transition-all transform hover:scale-105 active:scale-95">
+                            <div class="mt-16">
+                                <button onclick="resetLab()" class="bg-white hover:bg-slate-100 text-slate-900 font-black py-6 px-16 rounded-[2rem] shadow-2xl transition-all transform hover:scale-105 active:scale-95 text-2xl border-b-8 border-slate-300 active:border-b-0 active:translate-y-2">
                                     Test Another Environment
                                 </button>
                             </div>
@@ -481,15 +480,15 @@
             grid.innerHTML = '';
             scenarios.forEach(s => {
                 const card = document.createElement('div');
-                card.className = `${s.color} rounded-2xl p-6 cursor-pointer hover:shadow-xl transition-all hover:scale-105 border-2 border-transparent hover:border-current group relative overflow-hidden flex flex-col items-center text-center`;
+                card.className = `${s.color} rounded-[2rem] p-10 cursor-pointer hover:shadow-xl transition-all hover:scale-105 border-4 border-transparent hover:border-current group relative overflow-hidden flex flex-col items-center text-center`;
                 card.innerHTML = `
                     <div class="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative z-10">
-                        <div class="bg-white/80 p-4 rounded-full mb-4 inline-block shadow-sm">
-                            <i class="fa-solid ${s.icon} text-5xl"></i>
+                        <div class="bg-white/80 p-6 rounded-full mb-6 inline-block shadow-sm">
+                            <i class="fa-solid ${s.icon} text-7xl"></i>
                         </div>
-                        <h3 class="text-2xl font-black mb-1">${s.name}</h3>
-                        <p class="text-xs font-bold uppercase tracking-wide opacity-70">${s.envTitle}</p>
+                        <h3 class="text-4xl font-black mb-2">${s.name}</h3>
+                        <p class="text-lg font-bold uppercase tracking-wide opacity-70">${s.envTitle}</p>
                     </div>
                 `;
                 card.onclick = () => startScenario(s);
@@ -513,9 +512,9 @@
             document.getElementById('stage-bg').src = scenario.bgUrl;
 
             const tbody = scenario.challenges.map(c => `
-                <div class="mb-2 text-xs">
-                    <span class="font-bold text-red-800 block">${c.name}${c.critical ? '*' : ''}</span>
-                    <span class="text-slate-600">${c.desc}</span>
+                <div class="mb-5 border-b border-red-100 pb-3 last:border-0">
+                    <span class="font-black text-red-800 block text-2xl mb-1">${c.name}${c.critical ? '*' : ''}</span>
+                    <span class="text-slate-600 text-lg leading-snug">${c.desc}</span>
                 </div>
             `).join('');
             document.getElementById('env-conditions-table').innerHTML = tbody;
@@ -526,18 +525,18 @@
             grid.innerHTML = '';
             scenario.traits.forEach((trait, index) => {
                 const el = document.createElement('div');
-                el.className = 'trait-card bg-white border border-slate-200 rounded-xl p-4 cursor-pointer flex flex-col relative';
+                el.className = 'trait-card bg-white border-2 border-slate-200 rounded-3xl p-6 cursor-pointer flex flex-col relative';
                 el.onclick = () => toggleTrait(index, el);
                 el.innerHTML = `
-                    <div class="absolute top-2 right-2 text-green-500 check-icon">
-                        <i class="fa-solid fa-circle-check text-xl"></i>
+                    <div class="absolute top-3 right-3 text-green-500 check-icon">
+                        <i class="fa-solid fa-circle-check text-4xl"></i>
                     </div>
-                    <div class="flex justify-between items-start mb-2 pr-6">
-                        <h4 class="font-bold text-slate-800 text-sm">${trait.name}</h4>
-                        <span class="bg-slate-800 text-white px-2 py-0.5 rounded text-xs font-bold">${trait.cost} DNA</span>
+                    <div class="flex justify-between items-start mb-3 pr-10">
+                        <h4 class="font-black text-slate-800 text-2xl">${trait.name}</h4>
+                        <span class="bg-slate-800 text-white px-3 py-1 rounded-lg text-lg font-bold">${trait.cost} DNA</span>
                     </div>
-                    <p class="text-xs text-slate-500 mb-3 leading-snug">${trait.desc}</p>
-                    <div class="flex flex-wrap gap-1 mt-auto">
+                    <p class="text-base text-slate-500 mb-4 leading-normal font-medium">${trait.desc}</p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
                         ${getStatBadge('Atk', trait.stats.atk)}
                         ${getStatBadge('Def', trait.stats.def)}
                         ${getStatBadge('Sur', trait.stats.sur)}
@@ -553,7 +552,7 @@
             if (val === 0) return '';
             const color = val > 0 ? 'text-green-700 bg-green-100' : 'text-red-600 bg-red-100';
             const sign = val > 0 ? '+' : '';
-            return `<span class="text-[10px] px-1.5 py-0.5 rounded ${color} font-bold">${label} ${sign}${val}</span>`;
+            return `<span class="text-sm px-3 py-1 rounded-md ${color} font-black uppercase tracking-wide">${label} ${sign}${val}</span>`;
         }
 
         function toggleTrait(index, element) {
@@ -610,8 +609,8 @@
             container.innerHTML = '';
             const wrapper = document.createElement('div');
             wrapper.className = `relative flex items-center justify-center transition-all duration-500`;
-            wrapper.style.width = '16rem'; 
-            wrapper.style.height = '16rem';
+            wrapper.style.width = '24rem'; 
+            wrapper.style.height = '24rem';
             if (options.className) wrapper.className += ' ' + options.className;
             
             const scaler = document.createElement('div');
@@ -623,7 +622,7 @@
             layers.style.zIndex = '5';
 
             const base = document.createElement('i');
-            base.className = `fa-solid ${currentScenario.baseIcon} text-[10rem] text-white drop-shadow-2xl filter transition-all duration-500 relative`;
+            base.className = `fa-solid ${currentScenario.baseIcon} text-[14rem] text-white drop-shadow-2xl filter transition-all duration-500 relative`;
             base.style.zIndex = '10';
             base.style.color = 'white'; 
             base.style.transform = 'scale(1)'; 
@@ -655,7 +654,7 @@
                     } else if (vis.type === 'layer') {
                         const layer = document.createElement('i');
                         layer.className = `absolute inset-0 flex items-center justify-center fa-solid ${currentScenario.baseIcon} ${vis.color}`;
-                        layer.style.fontSize = '10rem'; 
+                        layer.style.fontSize = '14rem'; 
                         layer.style.transform = `scale(${vis.scale})`;
                         layer.style.opacity = vis.opacity;
                         if(vis.filter) layer.style.filter = vis.filter;
@@ -692,9 +691,9 @@
             
             const challengesList = document.getElementById('res-env-challenges');
             challengesList.innerHTML = currentScenario.challenges.map(c => `
-                <div class="bg-white p-3 rounded-lg border border-red-100 shadow-sm">
-                    <h5 class="font-bold text-red-800 text-sm mb-1">${c.name}${c.critical ? '*' : ''}</h5>
-                    <p class="text-xs text-slate-600 leading-snug">${c.desc}</p>
+                <div class="bg-white p-6 rounded-2xl border border-red-100 shadow-sm">
+                    <h5 class="font-black text-red-800 text-2xl mb-2">${c.name}${c.critical ? '*' : ''}</h5>
+                    <p class="text-lg text-slate-600 leading-normal font-medium">${c.desc}</p>
                 </div>
             `).join('');
 
@@ -704,26 +703,26 @@
                 const isSelected = selectedTraits.has(idx);
                 // Styles for selected vs unselected
                 const containerClass = isSelected 
-                    ? "bg-green-50 border-green-300 ring-1 ring-green-300 shadow-md" 
-                    : "bg-slate-50 border-slate-200 opacity-60 grayscale-[0.5]";
+                    ? "bg-green-50 border-green-300 ring-2 ring-green-300 shadow-md" 
+                    : "bg-slate-50 border-2 border-slate-200 opacity-60 grayscale-[0.5]";
                 
                 const icon = isSelected 
-                    ? `<div class="bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center shadow-sm"><i class="fa-solid fa-check text-xs"></i></div>`
-                    : `<div class="bg-slate-200 text-slate-400 w-6 h-6 rounded-full flex items-center justify-center"><i class="fa-solid fa-minus text-xs"></i></div>`;
+                    ? `<div class="bg-green-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-sm"><i class="fa-solid fa-check text-lg"></i></div>`
+                    : `<div class="bg-slate-200 text-slate-400 w-10 h-10 rounded-full flex items-center justify-center"><i class="fa-solid fa-minus text-lg"></i></div>`;
                 
                 const label = isSelected 
-                    ? `<span class="text-[10px] font-bold uppercase text-green-600 bg-green-100 px-2 py-0.5 rounded">Active</span>`
-                    : `<span class="text-[10px] font-bold uppercase text-slate-500 bg-slate-200 px-2 py-0.5 rounded">Not Selected</span>`;
+                    ? `<span class="text-sm font-black uppercase text-green-600 bg-green-100 px-4 py-1 rounded-lg">Active</span>`
+                    : `<span class="text-sm font-black uppercase text-slate-500 bg-slate-200 px-4 py-1 rounded-lg">Not Selected</span>`;
 
                 return `
-                    <div class="flex items-start gap-3 p-4 rounded-xl border ${containerClass} transition-all">
+                    <div class="flex items-start gap-5 p-6 rounded-3xl border ${containerClass} transition-all">
                         <div class="mt-1 flex-shrink-0">${icon}</div>
                         <div class="flex-grow">
-                            <div class="flex justify-between items-start">
-                                <h4 class="font-bold text-slate-800 text-sm">${t.name}</h4>
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-black text-slate-800 text-2xl">${t.name}</h4>
                                 ${label}
                             </div>
-                            <p class="text-xs text-slate-500 mt-1 leading-snug">${t.desc}</p>
+                            <p class="text-lg text-slate-500 mt-1 leading-normal font-medium">${t.desc}</p>
                         </div>
                     </div>
                 `;
@@ -779,35 +778,35 @@
                 // Formatting the Contributor String
                 let contribString = "";
                 if (contributors.length > 0) {
-                    contribString = contributors.map(c => `<span class="inline-block bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded font-bold mr-1 mb-1">${c}</span>`).join('');
+                    contribString = contributors.map(c => `<span class="inline-block bg-blue-100 text-blue-900 text-sm px-3 py-1 rounded-lg font-black mr-2 mb-2 shadow-sm border border-blue-200">${c}</span>`).join('');
                 } else if (!passed) {
-                    contribString = `<span class="text-red-400 text-xs italic">Missing necessary adaptation</span>`;
+                    contribString = `<span class="text-red-400 text-lg font-bold italic">Missing necessary adaptation</span>`;
                 }
 
                 if (passed) {
                     passedChallenges++;
                     challengeRowsHTML += `
-                        <tr class="border-b border-slate-700 last:border-0 hover:bg-slate-750">
-                            <td class="px-6 py-4 font-medium text-slate-300">${challenge.name}</td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-green-900/50 text-green-400 border border-green-800">
+                        <tr class="border-b-2 border-slate-700 last:border-0 hover:bg-slate-750 transition-colors">
+                            <td class="px-8 py-6 font-bold text-slate-300 text-xl">${challenge.name}</td>
+                            <td class="px-8 py-6">
+                                <span class="inline-flex items-center gap-3 px-5 py-2 rounded-full text-lg font-black bg-green-900/50 text-green-400 border-2 border-green-800">
                                     <i class="fa-solid fa-check"></i> Overcome
                                 </span>
                             </td>
-                            <td class="px-6 py-4">${contribString}</td>
+                            <td class="px-8 py-6">${contribString}</td>
                         </tr>`;
                 } else {
                     failedCount++;
                     if (challenge.critical) criticalFail = true;
                     challengeRowsHTML += `
-                        <tr class="border-b border-slate-700 last:border-0 hover:bg-slate-750">
-                            <td class="px-6 py-4 font-medium text-slate-300">${challenge.name}</td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-900/50 text-red-400 border border-red-800">
+                        <tr class="border-b-2 border-slate-700 last:border-0 hover:bg-slate-750 transition-colors">
+                            <td class="px-8 py-6 font-bold text-slate-300 text-xl">${challenge.name}</td>
+                            <td class="px-8 py-6">
+                                <span class="inline-flex items-center gap-3 px-5 py-2 rounded-full text-lg font-black bg-red-900/50 text-red-400 border-2 border-red-800">
                                     <i class="fa-solid fa-xmark"></i> Failed
                                 </span>
                             </td>
-                            <td class="px-6 py-4">${contribString}</td>
+                            <td class="px-8 py-6">${contribString}</td>
                         </tr>`;
                 }
             });
@@ -852,7 +851,7 @@
             }
 
             document.getElementById('result-title').innerText = title;
-            document.getElementById('result-title').className = `text-5xl font-black mb-4 ${colorClass}`;
+            document.getElementById('result-title').className = `text-8xl font-black mb-8 ${colorClass} tracking-tight`;
             document.getElementById('result-feedback').innerText = message;
             
             let score = 0;
@@ -873,8 +872,8 @@
             } else {
                 const scene = document.createElement('div');
                 scene.className = 'relative flex items-center justify-center';
-                scene.style.width = '200px';
-                scene.style.height = '200px';
+                scene.style.width = '240px';
+                scene.style.height = '240px';
                 resultStage.appendChild(scene);
 
                 const main = document.createElement('div');
@@ -887,10 +886,10 @@
                 buildCreature(main, 1.2, { className: mainAnim });
 
                 const offsets = [
-                    { x: -140, y: 60, s: 0.5 },
-                    { x: 140, y: 50, s: 0.6 },
-                    { x: -180, y: 20, s: 0.4 },
-                    { x: 190, y: 80, s: 0.45 }
+                    { x: -160, y: 70, s: 0.5 },
+                    { x: 160, y: 60, s: 0.6 },
+                    { x: -200, y: 30, s: 0.4 },
+                    { x: 210, y: 90, s: 0.45 }
                 ];
 
                 for(let i=0; i<Math.min(offspringCount, offsets.length); i++) {
